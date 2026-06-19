@@ -58,4 +58,3 @@ npm run build
 ## Author
 
 Daria Balanina
- 
