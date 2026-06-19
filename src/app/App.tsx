@@ -77,7 +77,7 @@ export default function App() {
                     {language === 'ru' ? 'Добавьте мебель из каталога слева' : 'Add furniture from the catalog on the left'}
                   </p>
                   <p className="text-xs mt-1" style={{ color: '#9B8E7E' }}>
-                    {language === 'ru' ? 'Перетаскивайте объекты прямо в 3D-пространстве' : 'Drag objects directly in 3D space'}
+                    {language === 'ru' ? 'Добавляйте объекты прямо в 3D-пространстве' : 'Drag objects directly in 3D space'}
                   </p>
                 </div>
               </motion.div>
