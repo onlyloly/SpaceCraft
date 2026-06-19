@@ -11,7 +11,6 @@ import {
   ChevronUp,
   LayoutDashboard,
   Camera,
-  GripVertical,
 } from 'lucide-react';
 
 import { useStore } from '../../store/useStore';
@@ -47,9 +46,6 @@ const FURNITURE_COLORS: Record<FurnitureType, string> = {
   nightstand: '#A8917A',
 };
 
-const MIN_PANEL_WIDTH = 292;
-const MAX_PANEL_WIDTH = 520;
-
 export function LeftPanel() {
   const language = useStore((s) => s.language);
   const room = useStore((s) => s.room);
@@ -65,7 +61,6 @@ export function LeftPanel() {
 
   const tx = t(language);
 
-  const [panelWidth, setPanelWidth] = useState(320);
   const [roomOpen, setRoomOpen] = useState(true);
   const [catalogOpen, setCatalogOpen] = useState(true);
   const [objectsOpen, setObjectsOpen] = useState(true);
@@ -76,38 +71,12 @@ export function LeftPanel() {
     showNotification(`${tx.furniture.types[type]} ${tx.furniture.added}`, 'success');
   };
 
-  const startResize = (event: React.PointerEvent<HTMLDivElement>) => {
-    event.preventDefault();
-
-    const startX = event.clientX;
-    const startWidth = panelWidth;
-
-    const onMove = (moveEvent: PointerEvent) => {
-      const nextWidth = startWidth + (moveEvent.clientX - startX);
-      const clamped = Math.max(MIN_PANEL_WIDTH, Math.min(MAX_PANEL_WIDTH, nextWidth));
-      setPanelWidth(clamped);
-    };
-
-    const onUp = () => {
-      document.body.style.cursor = '';
-      document.body.style.userSelect = '';
-      window.removeEventListener('pointermove', onMove);
-      window.removeEventListener('pointerup', onUp);
-    };
-
-    document.body.style.cursor = 'col-resize';
-    document.body.style.userSelect = 'none';
-
-    window.addEventListener('pointermove', onMove);
-    window.addEventListener('pointerup', onUp);
-  };
-
   return (
     <aside
-      className="relative left-panel-scroll flex flex-col gap-3 p-3"
+      className="left-panel-scroll flex flex-col gap-3 p-3"
       style={{
-        width: panelWidth,
-        minWidth: panelWidth,
+        width: 292,
+        minWidth: 292,
         height: 'calc(100vh - 72px)',
         maxHeight: 'calc(100vh - 72px)',
         overflowY: 'auto',
@@ -117,26 +86,6 @@ export function LeftPanel() {
         borderRight: '1px solid rgba(139, 111, 71, 0.12)',
       }}
     >
-      <div
-        onPointerDown={startResize}
-        className="absolute top-0 right-0 z-50 h-full w-3 flex items-center justify-center cursor-col-resize group"
-        title="Потянуть, чтобы расширить панель"
-        style={{
-          transform: 'translateX(50%)',
-        }}
-      >
-        <div
-          className="h-16 w-5 rounded-full flex items-center justify-center opacity-60 group-hover:opacity-100 transition-opacity"
-          style={{
-            background: 'rgba(139,111,71,0.18)',
-            border: '1px solid rgba(139,111,71,0.16)',
-            backdropFilter: 'blur(10px)',
-          }}
-        >
-          <GripVertical size={14} color="#8B6F47" />
-        </div>
-      </div>
-
       <div
         className="sticky top-0 z-20 flex rounded-xl overflow-hidden p-0.5"
         style={{
@@ -234,7 +183,7 @@ export function LeftPanel() {
         onToggle={() => setObjectsOpen(!objectsOpen)}
       >
         <div
-          className="max-h-[460px] overflow-y-auto pr-1"
+          className="max-h-[420px] overflow-y-auto pr-1"
           style={{
             scrollbarWidth: 'thin',
           }}
@@ -249,7 +198,7 @@ export function LeftPanel() {
         onToggle={() => setOpeningsOpen(!openingsOpen)}
       >
         <div
-          className="max-h-[460px] overflow-y-auto pr-1"
+          className="max-h-[420px] overflow-y-auto pr-1"
           style={{
             scrollbarWidth: 'thin',
           }}
