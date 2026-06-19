@@ -1,0 +1,1 @@
+Исправлено: package.json переведён на совместимые версии React 18 + @react-three/fiber 8 + drei 9 + three 0.160, чтобы убрать белый экран с ошибкой reading S. После замены файлов нужно удалить node_modules и lock-файл, затем выполнить npm install и npm run dev.
